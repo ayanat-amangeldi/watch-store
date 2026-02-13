@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | SÜLU</title>
+
+<link rel="stylesheet" href="css/header.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: #F6F6F4;
+}
+
+.page {
+  padding: 60px 80px;
+}
+
+h1 {
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  flex: 1;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  margin: 0 0 15px;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.table {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+select {
+  padding: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("header").innerHTML = html;
+    const script = document.createElement("script");
+    script.src = "js/header.js";
+    document.body.appendChild(script);
+  });
+</script>
+
+<main class="page">
+  <h1>Admin Dashboard</h1>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Total Sales</h3>
+      <div class="stat-number" id="totalSales">0</div>
+    </div>
+
+    <div class="card">
+      <h3>Completed Orders</h3>
+      <div class="stat-number" id="ordersCount">0</div>
+    </div>
+  </div>
+
+  <div class="table">
+    <h3>Top Watches</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Watch ID</th>
+          <th>Sold</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody id="topWatches"></tbody>
+    </table>
+  </div>
+
+</main>
+
+<script>
+const API = "/api/v1";
+const token = localStorage.getItem("token");
+
+if (!token) {
+  window.location.href = "login.html";
+}
+
+const user = JSON.parse(atob(token.split('.')[1]));
+
+if (user.role !== "admin") {
+  window.location.href = "index.html";
+}
+
+async function loadStats() {
+  const res = await fetch(API + "/admin/stats/total-sales", {
+    headers: { Authorization: "Bearer " + token }
+  });
+
+  const data = await res.json();
+
+  document.getElementById("totalSales").textContent =
+    "$" + (data.totalSales || 0);
+
+  document.getElementById("ordersCount").textContent =
+    data.ordersCount || 0;
+}
+
+async function loadTopWatches() {
+  const res = await fetch(API + "/admin/stats/top-watches", {
+    headers: { Authorization: "Bearer " + token }
+  });
+
+  const watches = await res.json();
+
+  const tbody = document.getElementById("topWatches");
+  tbody.innerHTML = "";
+
+  watches.forEach(w => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${w._id}</td>
+        <td>${w.totalSold}</td>
+        <td>$${w.totalRevenue}</td>
+      </tr>
+    `;
+  });
+}
+
+loadStats();
+loadTopWatches();
+</script>
+
+</body>
+</html>

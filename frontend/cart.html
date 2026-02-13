@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cart | WatchStore</title>
+
+  <link rel="stylesheet" href="./css/header.css" />
+  <link rel="stylesheet" href="./css/cards.css" />
+</head>
+<body>
+
+<div id="header"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("header").innerHTML = data;
+
+      const script = document.createElement("script");
+      script.src = "js/header.js";
+      document.body.appendChild(script);
+    })
+    .catch(err => console.error("Header load error:", err));
+});
+</script>
+
+<main class="page">
+  <h1>Cart</h1>
+
+  <div id="cartList" class="grid"></div>
+
+  <div style="margin-top: 24px;">
+    <h3 id="total">Total: 0 $</h3>
+    <button id="checkoutBtn">Checkout</button>
+    <p id="msg"></p>
+  </div>
+</main>
+
+<script type="module" src="./js/cart.js"></script>
+
+</body>
+</html>

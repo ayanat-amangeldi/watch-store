@@ -1,0 +1,26 @@
+.home {
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.home h1 {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.home p {
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+
+.home-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.home-actions button {
+  padding: 12px 24px;
+  font-size: 14px;
+  cursor: pointer;
+}

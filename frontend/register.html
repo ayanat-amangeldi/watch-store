@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Register | SÜLU</title>
+
+<link rel="stylesheet" href="./css/header.css">
+<link rel="stylesheet" href="./css/auth.css">
+</head>
+
+<body>
+
+<header class="main-header">
+  <div class="logo"><a href="index.html">SÜLU</a></div>
+
+  <nav class="nav-links">
+    <a href="watches.html">Buy Watches</a>
+    <a href="sell.html">Sell Watches</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+
+  <div class="auth-section" id="auth-section"></div>
+</header>
+
+<main class="auth-page">
+  <div class="auth-container">
+    <h1>Create Account</h1>
+
+    <form id="registerForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Register</button>
+    </form>
+
+    <p id="error" class="error"></p>
+
+    <p class="link">
+      Already have an account? <a href="login.html">Login</a>
+    </p>
+  </div>
+</main>
+
+<script src="./js/header.js"></script>
+<script type="module" src="./js/auth.js"></script>
+
+</body>
+</html>

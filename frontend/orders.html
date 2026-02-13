@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>My Orders | WatchStore</title>
+    <!-- Подключение стилей хедера и других -->
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/cards.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header"></div>
+
+<main class="page">
+    <h1>My Orders</h1>
+
+    <!-- Сюда будут подгружены данные о заказах -->
+    <div id="ordersList" class="orders">
+        <!-- Данные о заказах здесь -->
+    </div>
+</main>
+
+<!-- HEADER LOGIC -->
+<script>
+    fetch("./header.html")
+        .then(r => r.text())
+        .then(html => {
+            document.getElementById("header").innerHTML = html;
+        });
+</script>
+
+<!-- AUTH GUARD -->
+<script src="./js/guard.js"></script>
+
+<!-- ORDERS LOGIC -->
+<script type="module" src="./js/orders.js"></script>
+
+</body>
+</html>

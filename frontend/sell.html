@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sell Watch | SÜLU</title>
+
+<link rel="stylesheet" href="css/header.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: #F6F6F4;
+}
+
+.page {
+  padding: 80px 120px;
+}
+
+h1 {
+  font-size: 38px;
+  margin-bottom: 40px;
+}
+
+.form-box {
+  background: white;
+  padding: 40px;
+  border-radius: 14px;
+  max-width: 700px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+}
+
+.form-box input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.form-box input:focus {
+  outline: none;
+  border-color: #1C2A3A;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background: #1C2A3A;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:hover {
+  background: #16212d;
+}
+
+.message {
+  margin-top: 20px;
+  font-weight: 500;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("header").innerHTML = html;
+    const s = document.createElement("script");
+    s.src = "js/header.js";
+    document.body.appendChild(s);
+  });
+</script>
+
+<main class="page">
+  <h1>Sell Your Watch</h1>
+
+  <div class="form-box">
+    <form id="sellForm">
+      <input type="text" id="model" placeholder="Model (e.g. Rolex Daytona)" required>
+      <input type="number" id="price" placeholder="Price $" required>
+      <input type="number" id="stock" placeholder="Stock quantity" required>
+      <input type="text" id="imageUrl" placeholder="Image URL" required>
+
+      <input type="text" id="movement" placeholder="Movement (Automatic / Quartz)">
+      <input type="text" id="caseMaterial" placeholder="Case material">
+      <input type="text" id="waterResistance" placeholder="Water resistance (e.g. 100m)">
+
+      <button type="submit">Publish Watch</button>
+    </form>
+
+    <div id="message" class="message"></div>
+  </div>
+</main>
+
+<script>
+const API = "/api/v1";
+const token = localStorage.getItem("token");
+
+if (!token) {
+  window.location.href = "login.html";
+}
+
+document.getElementById("sellForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    model: document.getElementById("model").value,
+    price: Number(document.getElementById("price").value),
+    stock: Number(document.getElementById("stock").value),
+    imageUrl: document.getElementById("imageUrl").value,
+    specs: {
+      movement: document.getElementById("movement").value,
+      caseMaterial: document.getElementById("caseMaterial").value,
+      waterResistance: document.getElementById("waterResistance").value
+    }
+  };
+
+  try {
+    const res = await fetch(API + "/watches", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) throw new Error(result.message);
+
+    document.getElementById("message").textContent =
+      "Watch published successfully ✔";
+
+    e.target.reset();
+
+  } catch (err) {
+    document.getElementById("message").textContent = err.message;
+  }
+});
+</script>
+
+</body>
+</html>

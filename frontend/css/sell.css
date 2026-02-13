@@ -1,0 +1,43 @@
+.page {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.sell-form {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sell-form input {
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.sell-form input:focus {
+  outline: none;
+  border-color: black;
+}
+
+.sell-form button {
+  margin-top: 10px;
+  padding: 14px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.sell-form button:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,74 @@
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Хедер */
+#header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.admin-page {
+    margin-top: 80px; /* Чтобы контент не перекрывался хедером */
+    padding: 20px;
+}
+
+/* Статистика */
+#stats {
+    margin-bottom: 40px;
+}
+
+#total-sales p {
+    font-size: 18px;
+    color: #333;
+}
+
+#top-watches h3 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Топовые товары */
+#top-watches-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#top-watches-list li {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Кнопки */
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Стиль для списка */
+ul {
+    padding-left: 0;
+}
